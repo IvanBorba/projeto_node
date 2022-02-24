@@ -1,5 +1,5 @@
-import express, { response } from "express"
-import {uuidv4} from "uuidv4"
+import express from "express"
+import { v4 as uuidv4} from "uuid"
 
 const app = express()
 app.use(express.json());
@@ -25,8 +25,6 @@ app.post("/user", (request, response) => {
  })
 
  return response.status(201).send()
-
-
 
 })
 
