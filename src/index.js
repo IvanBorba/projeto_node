@@ -1,12 +1,16 @@
 import express, { response } from "express"
+import {uuidv4} from "uuidv4"
+
 const app = express()
+app.use(express.json());
 
 
 const users = []
 
 
-app.post("/user", (req, res) => {
- const {email, name} = req.body
+app.post("/user", (request, response) => {
+ console.log(request.body)
+ const {email, name} = request.body
  const userArealdyExists =  users.find((user) => user.email === email)
 
  if(userArealdyExists) {
@@ -31,6 +35,7 @@ app.get("/", (request, response) => {
   message: "Hello World Kenzie"
  })
 })
+
 
 
 
