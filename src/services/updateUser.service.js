@@ -13,7 +13,7 @@ const updateUserService = (id, name, email) => {
     return "User not found";
   }
 
-  users[userIndex] = userUpdated;
+  users[userIndex] = { ...users[userIndex], ...userUpdated };
 
   return users[userIndex];
 };
