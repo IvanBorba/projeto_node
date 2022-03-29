@@ -1,21 +1,20 @@
-import users from "../database";
+import database from "../database";
 
-const updateUserService = (id, name, email) => {
-  const userUpdated = {
-    id,
-    name,
-    email,
-  };
+const updateUserService = async (id, name, email) => {
+  try {
+    const res = await database.query(
+      "UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *",
+      [name, email, id]
+    );
 
-  const userIndex = users.findIndex((element) => element.id === id);
+    if (res.rows.length === 0) {
+      throw "id não corresponde a nenhum usuário";
+    }
 
-  if (userIndex === -1) {
-    return "User not found";
+    return { message: "Usuário atualizado", user: res.rows[0] };
+  } catch (err) {
+    throw new Error(err);
   }
-
-  users[userIndex] = { ...users[userIndex], ...userUpdated };
-
-  return users[userIndex];
 };
 
 export default updateUserService;

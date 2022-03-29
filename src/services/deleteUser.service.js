@@ -1,15 +1,20 @@
-import users from "../database";
+import database from "../database";
 
-const deleteUserService = (id) => {
-  const userIndex = users.findIndex((element) => element.id === id);
+const deleteUserService = async (id) => {
+  try {
+    const res = await database.query(
+      "DELETE FROM users WHERE id = $1 RETURNING *",
+      [id]
+    );
 
-  if (userIndex === -1) {
-    return "User not found";
+    if (res.rows.length === 0) {
+      throw "id não corresponde a nenhum usuário";
+    }
+
+    return "Usuário deletado";
+  } catch (err) {
+    throw new Error(err);
   }
-
-  users.splice(userIndex, 1);
-
-  return "Usuário excluido";
 };
 
 export default deleteUserService;

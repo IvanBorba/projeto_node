@@ -1,16 +1,22 @@
-import users from "../database";
+import database from "../database";
 
-const verifyEmailAvailabilityMiddleware = (request, response, next) => {
+const verifyEmailAvailabilityMiddleware = async (request, response, next) => {
   const { email } = request.body;
 
-  const userArealdyExists = users.find((user) => user.email === email);
+  try {
+    const res = await database.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
 
-  if (userArealdyExists) {
-    return response
-      .status(400)
-      .json({ message: "This email address is already being used" });
+    if (res.rows.length > 0) {
+      return response
+        .status(400)
+        .json({ message: "This email address is already being used" });
+    }
+    next();
+  } catch (err) {
+    return response.status(400).json(err.message);
   }
-  next();
 };
 
 export default verifyEmailAvailabilityMiddleware;
