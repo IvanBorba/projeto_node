@@ -4,9 +4,9 @@ const userLoginController = async (request, response) => {
   const { email, password } = request.body;
 
   try {
-    const userLogin = await userLoginService(email, password);
+    const userToken = await userLoginService(email, password);
 
-    return response.json(userLogin);
+    return response.json(userToken);
   } catch (err) {
     return response.status(400).json(err.message);
   }

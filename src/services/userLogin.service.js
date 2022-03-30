@@ -7,7 +7,7 @@ const userLoginService = async (email, password) => {
     const res = await database.query("SELECT * FROM users WHERE email = $1", [
       email,
     ]);
-    console.log(res);
+
     if (res.rows.length === 0) {
       throw "Email ou senha inválidos";
     }
