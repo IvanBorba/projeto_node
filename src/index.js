@@ -7,6 +7,12 @@ app.use(express.json());
 
 app.use("/users", userRouter);
 
+app.get("/", (request, response) => {
+  return response.json({
+    message: "Hello World Kenzie",
+  });
+});
+
 app.listen(3333, () => {
   startDatabase();
 });
