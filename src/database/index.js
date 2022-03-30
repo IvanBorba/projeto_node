@@ -7,9 +7,8 @@ const database = new Client({
   port: 5432,
 });
 
-const startDatabase = async () => {
+export const startDatabase = async () => {
   await database.connect();
 };
-startDatabase();
 
 export default database;
