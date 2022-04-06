@@ -1,4 +1,5 @@
 import express from "express";
+import "dotenv/config";
 import { startDatabase } from "./database";
 import userRouter from "./routes/users.routes";
 import petsRouter from "./routes/pets.routes";
@@ -15,6 +16,7 @@ app.get("/", (request, response) => {
   });
 });
 
-app.listen(3333, () => {
+app.listen(process.env.PORT || 3333, () => {
   startDatabase();
+  console.log("Rodando na porta " + process.env.PORT || 3333);
 });
