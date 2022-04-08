@@ -9,7 +9,7 @@ const verifyAuthTokenMiddleware = (request, response, next) => {
       .json({ message: "Missing Authorization Token." });
   }
 
-  token = token.split(" ")[1];
+  //token = token.split(" ")[1];
 
   jwt.verify(token, "SECRET_KEY", (error, decoded) => {
     if (error) {

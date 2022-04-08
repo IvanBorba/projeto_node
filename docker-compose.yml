@@ -1,0 +1,20 @@
+services:
+  api:
+    container_name: api
+    image: api_express
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=nekel
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=db_users
+    volumes:
+      - ./create_tables.sql:/docker-entrypoint-initdb.d/creates_table.sql
